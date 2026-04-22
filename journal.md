@@ -1,0 +1,2 @@
+# [Embeddings and Vector Databases](https://scrimba.com/the-ai-engineer-path-c02v/~01o)
+In this project, we are using Supabase. I've created an organization, a project, then for the project's database - enable the "vector" extension on it so that it supports vector embeddings.
