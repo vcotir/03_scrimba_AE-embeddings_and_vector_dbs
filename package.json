@@ -1,18 +1,16 @@
 {
-  "name": "03_scrimba_ae-embeddings_and_vector_dbs",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "module",
-  "main": "index.js",
+  "name": "Scrim-s05mq7n",
+  "description": "https://scrimba.com/the-ai-engineer-path-c02v/~01p",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "devDependencies": {
-    "dotenv": "^17.4.2"
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "openai": "^6.34.0"
-  }
+    "@supabase/supabase-js": "2.38.0",
+    "openai": "4.12.1",
+    "vite": "latest"
+  },
+  "devDependencies": {}
 }
