@@ -12,5 +12,7 @@
     "openai": "4.12.1",
     "vite": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "dotenv": "^17.4.2"
+  }
 }
