@@ -43,7 +43,7 @@ as $$
 $$; 
 ```
 
-Interesting - can't believe the embedding for "waffles" the following similiarity rank with our [content](/03_scrimba_AE-embeddings_and_vector_dbs/content.js). I expected less than 0.5. Perhaps a greater threshold is necessary.
+Interesting - can't believe the embedding for "waffles" the following similiarity rank with our [content](content.js). I expected less than 0.5. Perhaps a greater threshold is necessary.
 
 ```
 [
@@ -64,3 +64,8 @@ Interesting - can't believe the embedding for "waffles" the following similiarit
   }
 ]
 ```
+
+# Conversational AI
+We pass in user's query to similarity search, pass in results and query to OpenAI's completitions API -- w/ a system prompt to not make things up and w permission to say "I don't know" -- then pass response back to user.
+
+See [index3.js](index3.js)
