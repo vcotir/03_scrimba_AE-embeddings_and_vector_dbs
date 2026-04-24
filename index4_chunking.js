@@ -52,8 +52,8 @@ async function createAndStoreEmbeddings() {
         )
     
         // Store in supabase
-        const { data, error } = await supabase.from('documents').insert(chunkEmbeddings)
-        console.log('data', data)
+        const { data, error } = await supabase.from('movies').insert(chunkEmbeddings)
+        console.log('SUCCESS!')
         if (error) {
             console.log('SUPABASE insert failed: ', error)
         }
