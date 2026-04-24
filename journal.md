@@ -6,43 +6,15 @@ In this project, we are using Supabase. I've created an organization, a project,
 ## Creating initial database 
 Run command on PG SQL editor with vector plugin enabled - this defines the "vector" datatype. 
 
-```
-create table documents (
-  id bigserial primary key,
-  content text,
-  embedding vector(1536)
-);
-```
+See [documents.sql](documents.sql)
 
 Ref: https://supabase.com/blog/openai-embeddings-postgres-vector
 
 ## Adding similiarity search
-We add a function that can 
-```sql
--- Create a function to search for documents
-create or replace function match_documents (
-  query_embedding vector(1536),
-  match_threshold float,
-  match_count int
-)
-returns table (
-  id bigint,
-  content text,
-  similarity float
-)
-language sql stable
-as $$
-  select
-    documents.id,
-    documents.content,
-    1 - (documents.embedding <=> query_embedding) as similarity
-  from documents
-  where 1 - (documents.embedding <=> query_embedding) > match_threshold
-  order by similarity desc
-  limit match_count;
-$$; 
-```
+We add a function to our database to match against documents - see [match_documents.sql](match_documents.sql)
 
+
+## Interesting
 Interesting - can't believe the embedding for "waffles" the following similiarity rank with our [content](content.js). I expected less than 0.5. Perhaps a greater threshold is necessary.
 
 ```
