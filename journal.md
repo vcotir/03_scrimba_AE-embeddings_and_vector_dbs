@@ -69,3 +69,16 @@ Interesting - can't believe the embedding for "waffles" the following similiarit
 We pass in user's query to similarity search, pass in results and query to OpenAI's completitions API -- w/ a system prompt to not make things up and w permission to say "I don't know" -- then pass response back to user.
 
 See [index3.js](index3.js)
+
+# Text Chunking
+The chunking of text directly influences the embeddings of the text. Which impacts semantic search. 
+
+
+Therefore, the decision on HOW to chunk is important. LangChain has text splitter tools that we can leverage to do chunking. See https://docs.langchain.com/oss/javascript/integrations/splitters
+
+In general, a recursive text splitting strategy is suggested due to its simplicity and effectiveness. Keep in mind that chunking strategies aren't one size fits all.
+
+# Questions
+1. LangChain Recursive Text splitter affords a `.createDocuments()` method. Why would I prefer this over my split output being pure strings?
+> It has more metadata - consistent w/ LangChain best practices. Works directly w/ other LangChain classes - 
+> Also, easier to add vector stores, memory, agents later
