@@ -50,6 +50,10 @@ Therefore, the decision on HOW to chunk is important. LangChain has text splitte
 
 In general, a recursive text splitting strategy is suggested due to its simplicity and effectiveness. Keep in mind that chunking strategies aren't one size fits all.
 
+# Error handling lessons
+1. Log as close to problem statement as possible
+2. Throw error so higher level catch can address the error too.
+
 # Questions
 1. LangChain Recursive Text splitter affords a `.createDocuments()` method. Why would I prefer this over my split output being pure strings?
 > It has more metadata - consistent w/ LangChain best practices. Works directly w/ other LangChain classes - 
