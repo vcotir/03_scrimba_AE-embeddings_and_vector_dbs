@@ -18,11 +18,16 @@ import fs from "fs/promises"
 Return LangChain's "output" – the array of Document objects. */
 
 async function splitDocument(document) {
-  const splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 100,
-    chunkOverlap: 0,
-  });
-  return splitter.splitText(document);
+    try {
+        const splitter = new RecursiveCharacterTextSplitter({
+          chunkSize: 100,
+          chunkOverlap: 0,
+        });
+        return splitter.splitText(document);
+    } catch (err) { 
+        console.error('trouble splitting document:', err)
+        throw new Error(`Failed to split document: ${err.message}`)
+    }
 }
 
 /* Create an embedding from each text chunk.
@@ -37,36 +42,44 @@ async function createAndStoreEmbeddings() {
         const chunkData = (await splitDocument(text));
 
         // Get embeddings
-    
-        const chunkEmbeddings = await Promise.all(chunkData.map(async (chunk, i) => {
-            const embedding = await openai.embeddings.create({
-                model: "text-embedding-ada-002",
-                input: chunk,
-            });
-
-            return {
-                content: chunkData[i],
-                embedding: embedding.data[0].embedding,
-            };
+        const chunkEmbeddings = await Promise.all(
+            chunkData.map(async (chunk, i) => {
+                try {
+                    const embedding = await openai.embeddings.create({
+                        model: "text-embedding-ada-002",
+                        input: chunk,
+                    });
+        
+                    return {
+                        content: chunkData[i],
+                        embedding: embedding.data[0].embedding,
+                    };
+                } catch (err) { 
+                    console.error(`Trouble creating embedding.`)
+                    throw err
+                }
             })
         )
     
         // Store in supabase
-        const { data, error } = await supabase.from('movies').insert(chunkEmbeddings)
-        console.log('SUCCESS!')
+        const { error } = await supabase.from('movies').insert(chunkEmbeddings)
         if (error) {
-            console.log('SUPABASE insert failed: ', error)
+          console.log("SUPABASE insert failed: ", err);
+          throw new Error(`SUPABASE insert failed: ${err.message}`);
+        } else {
+          console.log("SUCCESS!");
         }
         
         // For deleting null entries!
         // const nullEntries = await supabase.from('documents').delete().is('content', null)
         // console.log(nullEntries)
     } catch (err) { 
+        console.error(`Create and store embeddings failed: ${err.message}`)
         throw err
-    } 
-    // No need to close Supabae client
-
-    
+    }     
 }
 
-createAndStoreEmbeddings()
+createAndStoreEmbeddings().catch(err => { 
+    console.error("Unhanbled error in script", err)
+    process.exit(1)
+})
