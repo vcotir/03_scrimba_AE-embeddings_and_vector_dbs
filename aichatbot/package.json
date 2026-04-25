@@ -1,18 +1,18 @@
 {
   "name": "aichatbot",
   "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "description": "",
   "license": "ISC",
   "author": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "concurrently \"vite\" \"node --watch server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
+    "dotenv": "^17.4.2",
     "vite": "^8.0.10"
   },
   "dependencies": {
