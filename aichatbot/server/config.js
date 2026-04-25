@@ -1,5 +1,7 @@
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
+import dotenv from 'dotenv'
+dotenv.config({path: "server/.env"})
 
 /** OpenAI config */
 if (!process.env.OPENAI_API_KEY)
